@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ethers, formatEther } from "ethers";
 import { Web3Provider } from "@ethersproject/providers";
 import contractABI from "../getJson/MyContract.json";
@@ -27,14 +26,23 @@ const Nav = () => {
       );
       const balance = await contract.balanceOf(user);
       setuserBalance(formatEther(balance));
-    } catch (e) {}
+    } catch (e) {
+      console.error("Error fetching balance:", e);
+    }
   };
+
   const initialize = async () => {
     await findUser();
     await findBalance();
   };
-  initialize();
 
+  useEffect(() => {
+    initialize();
+
+    const intervalId = setInterval(findBalance, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [user]);
   return (
     <nav className="flex-between w-full mb-16 pt-3">
       <Link href="/" className="flex gap-2 items-center">

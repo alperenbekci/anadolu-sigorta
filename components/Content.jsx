@@ -18,7 +18,7 @@ const PromtCardList = ({}) => {
     {
       title: "Hızlı Müşteri Hizmetleri (2 Hak)",
       imageSrc: "/assets/images/gift.jpg",
-      amount: "5",
+      amount: "2",
     },
     {
       title: "Araç Sigortası Süresi Uzatma (3 Ay)",
